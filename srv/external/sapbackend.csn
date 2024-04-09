@@ -1,0 +1,600 @@
+{
+ "meta": {
+  "creator": "cds-dk 7.6.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "sapbackend": {
+   "kind": "service",
+   "@cds.external": true,
+   "@m.IsDefaultEntityContainer": "true"
+  },
+  "sapbackend.CustomerReviews": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "CustomerReviewId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 16,
+     "notNull": true
+    },
+    "Comment": {
+     "type": "cds.String",
+     "length": 1024
+    },
+    "CreationDate": {
+     "type": "cds.DateTime",
+     "@odata.Type": "Edm.DateTime"
+    },
+    "FirstName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "LastName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "ProductId": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "Rating": {
+     "type": "cds.Integer"
+    },
+    "Product": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.Products",
+     "keys": []
+    }
+   }
+  },
+  "sapbackend.ProductTexts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "Id": {
+     "key": true,
+     "type": "cds.Integer64",
+     "notNull": true
+    },
+    "Language": {
+     "type": "cds.String",
+     "length": 2
+    },
+    "LongDescription": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "Name": {
+     "type": "cds.LargeString"
+    },
+    "ProductId": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "ShortDescription": {
+     "type": "cds.String",
+     "length": 255
+    }
+   }
+  },
+  "sapbackend.SalesOrderItems": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "ItemNumber": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "SalesOrderId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "CurrencyCode": {
+     "type": "cds.String",
+     "length": 5
+    },
+    "DeliveryDate": {
+     "type": "cds.DateTime",
+     "@odata.Type": "Edm.DateTime"
+    },
+    "GrossAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3
+    },
+    "NetAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3
+    },
+    "ProductId": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "Quantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "QuantityUnit": {
+     "type": "cds.String",
+     "length": 3
+    },
+    "TaxAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3
+    },
+    "Product": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.Products",
+     "keys": []
+    },
+    "SalesOrderHeader": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.SalesOrderHeaders",
+     "on": [
+      {
+       "ref": [
+        "SalesOrderHeader",
+        "SalesOrderId"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "SalesOrderId"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "sapbackend.Suppliers": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "SupplierId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "City": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "Country": {
+     "type": "cds.String",
+     "length": 3
+    },
+    "EmailAddress": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "HouseNumber": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "PhoneNumber": {
+     "type": "cds.String",
+     "length": 30
+    },
+    "PostalCode": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "Street": {
+     "type": "cds.String",
+     "length": 60
+    },
+    "SupplierName": {
+     "type": "cds.String",
+     "length": 80
+    }
+   }
+  },
+  "sapbackend.SalesOrderHeaders": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "SalesOrderId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "CreatedAt": {
+     "type": "cds.DateTime",
+     "@odata.Type": "Edm.DateTime"
+    },
+    "CurrencyCode": {
+     "type": "cds.String",
+     "length": 5
+    },
+    "CustomerId": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "GrossAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3
+    },
+    "LifeCycleStatus": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true
+    },
+    "LifeCycleStatusName": {
+     "type": "cds.String",
+     "length": 255,
+     "notNull": true
+    },
+    "NetAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3
+    },
+    "TaxAmount": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3
+    },
+    "Customer": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.Customers",
+     "keys": []
+    },
+    "SalesOrderItems": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.SalesOrderItems",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "SalesOrderItems",
+        "SalesOrderId"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "SalesOrderId"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "sapbackend.Customers": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "CustomerId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "City": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "Country": {
+     "type": "cds.String",
+     "length": 3
+    },
+    "DateOfBirth": {
+     "type": "cds.DateTime",
+     "@odata.Type": "Edm.DateTime",
+     "notNull": true
+    },
+    "EmailAddress": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "FirstName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "HouseNumber": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "LastName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "PhoneNumber": {
+     "type": "cds.String",
+     "length": 30
+    },
+    "PostalCode": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "Street": {
+     "type": "cds.String",
+     "length": 60
+    }
+   }
+  },
+  "sapbackend.ProductCategories": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "Category": {
+     "key": true,
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true
+    },
+    "CategoryName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "MainCategory": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "MainCategoryName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "NumberOfProducts": {
+     "type": "cds.Integer64"
+    }
+   }
+  },
+  "sapbackend.Products": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false, 
+   "elements": {
+    "ProductId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "Category": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "CategoryName": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "CurrencyCode": {
+     "type": "cds.String",
+     "length": 5
+    },
+    "DimensionDepth": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 4
+    },
+    "DimensionHeight": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 4
+    },
+    "DimensionUnit": {
+     "type": "cds.String",
+     "length": 3
+    },
+    "DimensionWidth": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 4
+    },
+    "LongDescription": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "Name": {
+     "type": "cds.LargeString"
+    },
+    "PictureUrl": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "Price": {
+     "type": "cds.Decimal",
+     "precision": 23,
+     "scale": 3
+    },
+    "QuantityUnit": {
+     "type": "cds.String",
+     "length": 3
+    },
+    "ShortDescription": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "SupplierId": {
+     "type": "cds.String",
+     "length": 10
+    },
+    "Weight": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "WeightUnit": {
+     "type": "cds.String",
+     "length": 3
+    },
+    "CustomerReview": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.CustomerReviews",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "Supplier": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.Suppliers",
+     "keys": []
+    }
+   }
+  },
+  "sapbackend.Stocks": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": false,
+   "elements": {
+    "ProductId": {
+     "key": true,
+     "type": "cds.String",
+     "length": 255,
+     "notNull": true
+    },
+    "LotSize": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "MinStock": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "Quantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "QuantityLessMin": {
+     "type": "cds.Boolean"
+    },
+    "Product": {
+     "@cds.ambiguous": "missing on condition?",
+     "type": "cds.Association",
+     "target": "sapbackend.Products",
+     "keys": []
+    }
+   }
+  },
+  "sapbackend.GetCustomerByEmailAddress": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "EmailAddress": {
+     "type": "cds.LargeString"
+    }
+   },
+   "returns": {
+    "items": {
+     "type": "sapbackend.Customers"
+    }
+   }
+  },
+  "sapbackend.ConfirmSalesOrder": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "SalesOrderId": {
+     "type": "cds.LargeString"
+    }
+   },
+   "returns": {
+    "items": {
+     "type": "sapbackend.SalesOrderHeaders"
+    }
+   }
+  },
+  "sapbackend.CancelSalesOrder": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "SalesOrderId": {
+     "type": "cds.LargeString"
+    }
+   },
+   "returns": {
+    "items": {
+     "type": "sapbackend.SalesOrderHeaders"
+    }
+   }
+  },
+  "sapbackend.GetSalesOrderItemsById": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "SalesOrderId": {
+     "type": "cds.LargeString"
+    }
+   },
+   "returns": {
+    "items": {
+     "type": "sapbackend.SalesOrderItems"
+    }
+   }
+  },
+  "sapbackend.GetSalesOrderInvoiceByEmail": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "EmailAddress": {
+     "type": "cds.LargeString"
+    }
+   },
+   "returns": {
+    "items": {
+     "type": "sapbackend.SalesOrderHeaders"
+    }
+   }
+  },
+  "sapbackend.CreateCustomerReview": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "ProductId": {
+     "type": "cds.LargeString"
+    },
+    "FirstName": {
+     "type": "cds.LargeString"
+    },
+    "LastName": {
+     "type": "cds.LargeString"
+    },
+    "Rating": {
+     "type": "cds.LargeString"
+    },
+    "CreationDate": {
+     "type": "cds.LargeString"
+    },
+    "Comment": {
+     "type": "cds.LargeString"
+    }
+   },
+   "returns": {
+    "type": "sapbackend.CustomerReviews"
+   }
+  }
+ }
+}

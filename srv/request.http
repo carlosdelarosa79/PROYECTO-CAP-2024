@@ -1,0 +1,38 @@
+// esto me sirve para hacer peticiones http , sin necesidad de un POSTMAN para evitar las credenciales , auoth, token etc
+
+### Get Orders obtenemos todos los pedidos
+GET http://localhost:4004/odata/v4/manage-orders/GetOrders
+
+### Get Order obtenemos por filtro ('') un determinado cliente   
+GET http://localhost:4004/odata/v4/manage-orders/GetOrders('client1@client1.com')
+
+### Create Order creamos ordenes
+post http://localhost:4004/odata/v4/manage-orders/CreateOrder 
+Content-Type: application/json
+
+{
+    "ClientEmail": "client8@client8.com",
+    "FirstName": "MILENA",
+    "LastName": "REYES",
+    "CreatedOn": "2022-01-08"
+}
+
+### UPDATE Order Actualizamos las ordenes
+PUT http://localhost:4004/odata/v4/manage-orders/UpdateOrder('client1@client1.com')
+Content-Type: application/json
+
+{
+    "FirstName": "si se actualizo ",
+    "LastName": "si se actualizo"
+}
+
+###Get Customer Rate - Function     !! me genera un error solucionar 13.1
+GET http://localhost:4004/odata/v4/manage-orders/getClientTaxRate(ClientEmail='client4@client4.com')
+
+### Cancelar Orden - Action       !! me genera error solucionar 13.3
+POST  http://localhost:4004/odata/v4/manage-orders/cancelOrder
+Content-Type: application/json
+
+{
+    "clientEmail" : "client1@client1.com"
+}
